@@ -1,0 +1,35 @@
+{
+  "name": "metadata-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chen7david/metadata-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chen7david/metadata-manager/issues"
+  },
+  "homepage": "https://github.com/chen7david/metadata-manager#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "axios": "^0.20.0",
+    "config": "^3.3.1",
+    "js-yaml": "^3.14.0",
+    "kcors": "^2.2.2",
+    "knex": "^0.21.5",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^9.4.0",
+    "koatools": "0.0.3",
+    "objection": "^2.2.3",
+    "pg": "^8.3.3",
+    "tmdb-agent": "0.0.5"
+  }
+}
