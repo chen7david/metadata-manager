@@ -1,5 +1,5 @@
 
-const { Genre } = require('./../src/models')
+const { Genre } = require('./../models')
 const genres = [
     {
         "id": 10759,
