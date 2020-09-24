@@ -3,7 +3,7 @@ const router = new Router()
 const movies = require('./controllers/MovieController')
 const { dd } = require('koatools')
 
-router.get('/show', movies.search)
+router.get('/movies', movies.search)
 
 
 

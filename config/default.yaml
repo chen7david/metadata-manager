@@ -1,7 +1,7 @@
 server:
     name: identity-manager-server
     protocol: http
-    hostname: 192.168.50.149
+    hostname: 192.168.50.128
     port: 9000
 tmdb:
     apiKey: 'c729bbc07bb8542dd22c1d740f0c5bf5'
