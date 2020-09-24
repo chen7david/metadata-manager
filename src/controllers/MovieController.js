@@ -8,8 +8,8 @@ module.exports = {
 
     import: async (ctx) => {
         const { id } = ctx.params
-        // const movies = await ctx.tmdb.movies().search(search,{ year})
-        ctx.body = ctx.params
+        const movie = await ctx.tmdb.movies().getById(id)
+        ctx.body = movie
     },
 
     create: async (ctx) => {
