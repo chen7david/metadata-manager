@@ -4,6 +4,7 @@ const schema = require('./../middleware/ValidationSchema')
 module.exports = {
 
     index: async (ctx) => {
+        const { year, name } = ctx.request.query
         const movies = await Movie.query()
         ctx.body = ctx.cargo.setPayload(movies)
     },
