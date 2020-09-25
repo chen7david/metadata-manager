@@ -1,6 +1,12 @@
 const Model = require('./Model')
 
 class Episode extends Model {
+
+    async $beforeInsert(context){
+        await super.$beforeInsert(context)
+        this.keyphrase = this.name
+    }
+    
     static get relationMappings(){ 
 
         const Season = require('./Season')

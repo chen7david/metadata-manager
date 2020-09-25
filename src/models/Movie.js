@@ -2,6 +2,11 @@ const Model = require('./Model')
 
 class Movie extends Model {
     
+    async $beforeInsert(context){
+        await super.$beforeInsert(context)
+        this.keyphrase = this.title
+    }
+
     static get relationMappings(){
         
         const Genre = require('./Genre')

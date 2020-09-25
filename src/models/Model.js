@@ -3,6 +3,7 @@ const knex = require('knex')(knexfile)
 const OM = require('koatools').BaseModel
 const { Model } = require('objection')
 const { deburr } = require('lodash')
+const { dd } = require('koatools')
 Model.knex(knex)
 
 class BaseModel extends OM(Model) {
@@ -11,6 +12,12 @@ class BaseModel extends OM(Model) {
         await super.$beforeInsert(context)
         if(this.keyphrase) this.keyphrase = deburr(this.keyphrase.toLowerCase())
         if(this.id) this.tmdb_id = this.id
+        delete this.id
+    }
+
+    async $beforeDelete(context){
+        await super.$beforeInsert(context)
+        if(this.backdrop_path && this.backdrop_path.length > 0) this.tmdb_id = this.id
     }
  
     $formatJson(json) {

@@ -4,6 +4,7 @@ exports.up = function(knex) {
       table.integer('imdb_id')
       table.integer('tmdb_id')
       table.string('name').notNullable()
+      table.string('keyphrase').notNullable()
       table.text('overview')
       table.string('air_date') 
       table.string('still_path') 

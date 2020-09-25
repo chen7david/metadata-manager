@@ -1,13 +1,13 @@
 exports.up = function(knex) {
 	return knex.schema.createTable('movies', (table) => {
         table.increments().primary()
-        table.integer('imdb_id')
-        table.integer('tmdb_id')
+        table.string('imdb_id').unique()
+        table.integer('tmdb_id').unique()
         table.string('keyphrase').notNullable()
         table.string('title').notNullable()
+        table.string('original_title')
         table.string('poster_path')
         table.string('backdrop_path')
-        table.string('original_title')
         table.string('original_language')
         table.text('overview')
         table.string('vote_average')
