@@ -2,7 +2,9 @@ server:
     name: identity-manager-server
     protocol: http
     hostname: 192.168.50.128
-    port: 9000
+    port: 8000
+directory:
+    image: image
 tmdb:
     apiKey: 'c729bbc07bb8542dd22c1d740f0c5bf5'
     imageURL: 'http://image.tmdb.org/t/p/'
@@ -37,4 +39,16 @@ tmdb:
             - "w92"
             - "w185"
             - "w300"
+            - "original"
+        all:
+            - "w45"
+            - "w92"
+            - "w154"
+            - "w185"
+            - "w300"
+            - "w342"
+            - "w500"
+            - "h632"
+            - "w780"
+            - "w1280"
             - "original"

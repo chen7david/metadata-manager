@@ -4,4 +4,5 @@ module.exports = {
     Season: require('./Season'),
     Episode: require('./Episode'),
     Genre: require('./Genre'),
+    Directory: require('./Directory'),
 }

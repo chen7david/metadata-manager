@@ -18,7 +18,7 @@ const {
 app.use(cors())
 app.use(bodyParser())
 app.use(cargo())
-app.use(tmdb({apiKey}))
+app.use(tmdb({apiKey, basePath: 'src/image/'}))
 app.use(ErrorHandler(handler))
 // app.on('error', ErrorLogger)
 

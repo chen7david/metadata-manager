@@ -1,5 +1,14 @@
+const { Genre, Directory } = require('./../models')
+const { tmdb:{sizes} } = require('config')
+const directory = new Directory('public')
 
-const { Genre } = require('./../models')
+const run = async () => {
+    
+    for(size of sizes.all){
+        directory.mkfolder(`image/${size}`)
+    }
+}
+
 const genres = [
     {
         "id": 10759,
@@ -117,9 +126,9 @@ const main = async () => {
         try {
             await Genre.query().insert(genre)
         } catch (err) {
-            console.log(err)
+            // console.log(err)
         }
     }
 }
-
+run()
 main()

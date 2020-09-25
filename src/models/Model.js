@@ -4,6 +4,8 @@ const OM = require('koatools').BaseModel
 const { Model } = require('objection')
 const { deburr } = require('lodash')
 const { dd } = require('koatools')
+const path = require('path')
+
 Model.knex(knex)
 
 class BaseModel extends OM(Model) {
@@ -29,7 +31,7 @@ class BaseModel extends OM(Model) {
 
     normalize(name){
         return deburr(name.toLowerCase())
-    }
+    }    
 
 }
 

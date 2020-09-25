@@ -15,7 +15,7 @@ module.exports = {
         ctx.body = ctx.cargo.setPayload(movies)
     },
 
-    import: async (ctx, next) => {
+    import: async (ctx) => {
         try {
             const { movie_id } = ctx.params
             if(ctx.state.movie) return ctx.body = ctx.cargo.setDetail('duplicate', 'movie id')
@@ -25,11 +25,14 @@ module.exports = {
             const data = await Movie.transaction(async (trx) => {
                 const movie = await Movie.query(trx).insert(value).returning('*')
                 await movie.$relatedQuery('genres', trx).relate(match.genres.map(o => o.id))
+                if(movie.poster_path) await ctx.tmdb.savePoster(movie.poster_path)
+                if(movie.backdrop_path) await ctx.tmdb.saveBackdrop(movie.backdrop_path) 
                 return await Movie.query(trx)
                     .where('id', movie.id)
                     .withGraphFetched('genres')
                     .first()
-            })            
+            })
+                     
             ctx.body = ctx.cargo.setPayload(data)
         } catch (err) {
             throw(err)
