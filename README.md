@@ -20,3 +20,9 @@ shows trending| GET | trending?type=shows
 people trending| GET | trending?type=people
 
 
+### Genres API
+Name | Method | URL
+--- | --- | --- | 
+movies trending| GET | genres?type=movies
+shows trending| GET | genres?type=shows
+
