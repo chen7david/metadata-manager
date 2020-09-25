@@ -10,8 +10,8 @@ class BaseModel extends OM(Model) {
  
     async $beforeInsert(context){
         await super.$beforeInsert(context)
-        // if(this.id) this.tmdb_id = this.id
-        // delete this.id
+        if(this.id) this.tmdb_id = this.id
+        delete this.id
     }
 
     async $beforeDelete(context){
