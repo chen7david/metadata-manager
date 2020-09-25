@@ -2,7 +2,6 @@ exports.up = function(knex) {
 	return knex.schema.createTable('movies', (table) => {
         table.increments().primary()
         table.string('imdb_id').unique()
-        table.integer('tmdb_id').unique()
         table.string('keyphrase').notNullable()
         table.string('title').notNullable()
         table.string('original_title')

@@ -17,10 +17,9 @@ module.exports = {
 
     import: async (ctx, next) => {
         try {
-            const { id } = ctx.params
-            const exists = await Movie.query().where('tmdb_id', id).first()
-            if(exists) return ctx.body = ctx.cargo.setDetail('duplicate', 'movie id')
-            const match = await ctx.tmdb.movies().getById(id)
+            const { movie_id } = ctx.params
+            if(ctx.state.movie) return ctx.body = ctx.cargo.setDetail('duplicate', 'movie id')
+            const match = await ctx.tmdb.movies().getById(movie_id)
             const { error, value } = schema.createMovie.validate(match)
             if(error) throw(error)
             const trx = await Movie.transaction(async (trx) => {
@@ -60,8 +59,8 @@ module.exports = {
     },
 
     delete: async (ctx) => {
-        const { search, year } = ctx.request.query
-        const movies = await ctx.tmdb.movies().search(search,{ year})
-        ctx.body = movies
+        const { id } = ctx.params
+        const exists = await Movie.query().where('id', id).first()
+        if(exists) return ctx.body = ctx.cargo.setDetail('duplicate', 'movie id')
     },
 }

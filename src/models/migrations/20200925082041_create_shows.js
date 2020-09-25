@@ -2,7 +2,6 @@ exports.up = function(knex) {
 	return knex.schema.createTable('shows', (table) => {
         table.increments().primary()
         table.integer('imdb_id')
-        table.integer('tmdb_id')
         table.string('keyphrase').notNullable()
         table.string('name').notNullable()
         table.string('poster_path')
