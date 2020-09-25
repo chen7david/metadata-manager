@@ -4,6 +4,17 @@ const { dd } = require('koatools')
 
 module.exports = async (err, ctx, next) => {
     err.id = ctx.cargo.serial
+
+    /* HTTP AXIOS EXCEPTION MUTATOR */
+    const messages = [
+        'Request failed with status code 404'
+    ]
+
+    if(messages.includes(err.message)){
+        err.status = 404
+        ctx.cargo.setDetail('invalid', 'id')
+    }
+    
     /* VALIDATION EXCEPTION MUTATOR */
     if(err instanceof ValidationError) {
         const { details, _original } = err
@@ -29,6 +40,5 @@ module.exports = async (err, ctx, next) => {
         ctx.cargo.persistDetail()
         ctx.app.emit('error', err, ctx)
     }
- 
     return ctx.cargo
 }

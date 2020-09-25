@@ -17,10 +17,10 @@ const {
 /* MIDDLEWARE */
 app.use(cors())
 app.use(bodyParser())
-app.on('error', ErrorLogger)
 app.use(cargo())
 app.use(tmdb({apiKey}))
 app.use(ErrorHandler(handler))
+// app.on('error', ErrorLogger)
 
 /* ROUTES */
 app.use(router.routes())
