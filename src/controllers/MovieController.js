@@ -3,6 +3,11 @@ const { Movie } = require('./../models')
 const schema = require('./../middleware/ValidationSchema')
 module.exports = {
 
+    index: async (ctx) => {
+        const movies = await Movie.query()
+        ctx.body = ctx.cargo.setPayload(movies)
+    },
+
     search: async (ctx) => {
         const { search, year } = ctx.request.query
         const movies = await ctx.tmdb.movies().search(search,{ year })
