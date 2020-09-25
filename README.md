@@ -23,6 +23,6 @@ people trending| GET | trending?type=people
 ### Genres API
 Name | Method | URL
 --- | --- | --- | 
-movies trending| GET | genres?type=movies
-shows trending| GET | genres?type=shows
+movie genres| GET | genres?type=movies
+show genres| GET | genres?type=shows
 
