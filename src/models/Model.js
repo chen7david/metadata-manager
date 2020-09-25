@@ -10,9 +10,8 @@ class BaseModel extends OM(Model) {
  
     async $beforeInsert(context){
         await super.$beforeInsert(context)
-        if(this.keyphrase) this.keyphrase = deburr(this.keyphrase.toLowerCase())
-        if(this.id) this.tmdb_id = this.id
-        delete this.id
+        // if(this.id) this.tmdb_id = this.id
+        // delete this.id
     }
 
     async $beforeDelete(context){
@@ -26,8 +25,14 @@ class BaseModel extends OM(Model) {
         delete json.imdb_id    
         delete json.created_at
         delete json.deleted_at
+        delete json.updated_at
         return json
-    } 
+    }
+
+    normalize(name){
+        return deburr(name.toLowerCase())
+    }
+
 }
 
 module.exports = BaseModel

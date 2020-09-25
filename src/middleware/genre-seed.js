@@ -31,7 +31,7 @@ const genres = [
     },
     {
         "id": 10762,
-            "name": "Kids"
+        "name": "Kids"
     },
     {
         "id": 9648,
@@ -64,13 +64,61 @@ const genres = [
     {
         "id": 37,
         "name": "Western"
+    },
+    {
+        "id": 28,
+        "name": "Action"
+    },
+    {
+        "id": 12,
+        "name": "Adventure"
+    },
+    {
+        "id": 14,
+        "name": "Fantasy"
+    },
+    {
+        "id": 36,
+        "name": "History"
+    },
+    {
+        "id": 27,
+        "name": "Horror"
+    },
+    {
+        "id": 10402,
+        "name": "Music"
+    },
+    {
+        "id": 10749,
+        "name": "Romance"
+    },
+    {
+        "id": 878,
+        "name": "Science Fiction"
+    },
+    {
+        "id": 10770,
+        "name": "TV Movie"
+    },
+    {
+        "id": 53,
+        "name": "Thriller"
+    },
+    {
+        "id": 10752,
+        "name": "War"
     }
 ]
 
 /* SEED SCRIPT */
 const main = async () => {
     for(let genre of genres){
-        await Genre.query().insert(genre)
+        try {
+            await Genre.query().insert(genre)
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 

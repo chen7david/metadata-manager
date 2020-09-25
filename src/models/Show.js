@@ -4,7 +4,7 @@ class Show extends Model {
 
     async $beforeInsert(context){
         await super.$beforeInsert(context)
-        this.keyphrase = this.name
+        this.keyphrase = this.normalize(this.name)
     }
 
     static get relationMappings(){

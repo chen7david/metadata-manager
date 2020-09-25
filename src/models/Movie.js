@@ -4,7 +4,7 @@ class Movie extends Model {
     
     async $beforeInsert(context){
         await super.$beforeInsert(context)
-        this.keyphrase = this.title
+        this.keyphrase = this.normalize(this.title)
     }
 
     static get relationMappings(){
