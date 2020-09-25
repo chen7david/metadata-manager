@@ -22,7 +22,7 @@ module.exports = {
             const match = await ctx.tmdb.movies().getById(movie_id)
             const { error, value } = schema.createMovie.validate(match)
             if(error) throw(error)
-            const trx = await Movie.transaction(async (trx) => {
+            const data = await Movie.transaction(async (trx) => {
                 const movie = await Movie.query(trx).insert(value).returning('*')
                 await movie.$relatedQuery('genres', trx).relate(match.genres.map(o => o.id))
                 return await Movie.query(trx)
@@ -30,7 +30,7 @@ module.exports = {
                     .withGraphFetched('genres')
                     .first()
             })            
-            ctx.body = ctx.cargo.setPayload(trx)
+            ctx.body = ctx.cargo.setPayload(data)
         } catch (err) {
             throw(err)
         }
