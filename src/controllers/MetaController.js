@@ -2,6 +2,7 @@ const { dd } = require('koatools')
 const { Genre } = require('../models')
 
 module.exports = {
+    
     genres: async (ctx) => {
         const { type } = ctx.request.query
         let genres = [] 
