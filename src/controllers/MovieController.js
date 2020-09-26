@@ -9,7 +9,7 @@ module.exports = {
         ctx.body = ctx.cargo.setPayload(movies)
     },
 
-    search: async (ctx) => {
+    tmdbSearch: async (ctx) => {
         const { search, year } = ctx.request.query
         const movies = await ctx.tmdb.movies().search(search,{ year })
         ctx.body = ctx.cargo.setPayload(movies)
@@ -22,29 +22,15 @@ module.exports = {
             const match = await ctx.tmdb.movies().getById(movie_id)
             const { error, value } = schema.createMovie.validate(match)
             if(error) throw(error)
-            const data = await Movie.transaction(async (trx) => {
-                const movie = await Movie.query(trx).insert(value).returning('*')
-                await movie.$relatedQuery('genres', trx).relate(match.genres.map(o => o.id))
-                return await Movie.query(trx)
-                    .where('id', movie.id)
-                    .withGraphFetched('genres')
-                    .first()
-            })
-                     
-            ctx.body = ctx.cargo.setPayload(data)
+            const movie = await Movie.query().insert(value)
+            ctx.body = ctx.cargo.setPayload(movie)
         } catch (err) {
             throw(err)
         }
     },
 
-    get: async (ctx) => {
-        try {
-            const { id } = ctx.params
-            const movie = await ctx.tmdb.movies().getById(id)
-            ctx.body = ctx.cargo.setPayload(movie)
-        } catch (err) {
-            ctx.body = ctx.cargo
-        }
+    view: async (ctx) => {
+        ctx.body = ctx.cargo.setPayload(ctx.state.movie)
     },
 
     create: async (ctx) => {

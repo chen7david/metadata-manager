@@ -11,14 +11,23 @@ router.param('movie_id', paramLoader({
     required: false
 }))
 
-router.get('/tmdb-movies', movies.search)
+router.param('movieId', paramLoader({
+    model:'Movie', 
+    required: true
+}))
+
+/* MOVIES */
+router.get('/tmdb-movies', movies.tmdbSearch)
 router.get('/movies', movies.index)
 router.get('/import-movie/:movie_id/id', movies.import)
-router.get('/delete-movie/:movie_id/id', movies.delete)
+router.get('/movie/:movieId/id', movies.view)
+router.delete('/movie/:movieId/id', movies.delete)
 
-router.get('/tmdb-shows', shows.search)
+/* TV SHOWS */
+router.get('/tmdb-shows', shows.tmdbSearch)
 router.get('/import-show/:id/id', shows.import)
 
+/* META */
 router.get('/genres', meta.genres)
 router.get('/trending', meta.trending)
 

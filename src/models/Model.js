@@ -19,12 +19,24 @@ class BaseModel extends OM(Model) {
     }
 
     async $afterInsert(context){
-        await super.$beforeInsert(context)
-        if(this.poster_path) await this.savePoster(this.poster_path)
-        if(this.backdrop_path) await this.saveBackdrop(this.backdrop_path)
-        if(this.still_path) await this.saveStill(this.still_path)
-        if(this.profile_path) await this.saveProfile(this.profile_path)
-        if(this.logo_path) await this.saveLogo(this.logo_path)
+        await super.$afterInsert(context)
+        try {
+            if(this.poster_path) await this.savePoster(this.poster_path)
+            if(this.backdrop_path) await this.saveBackdrop(this.backdrop_path)
+            if(this.still_path) await this.saveStill(this.still_path)
+            if(this.profile_path) await this.saveProfile(this.profile_path)
+            if(this.logo_path) await this.saveLogo(this.logo_path)
+            if(this.genres && this.genres.length > 0){
+                await this.$relatedQuery('genres').relate(this.genres.map(o => o.id))
+            }
+        } catch (err) {
+            if(this.poster_path) await this.removePoster(this.poster_path)
+            if(this.backdrop_path) await this.removeBackdrop(this.backdrop_path)
+            if(this.still_path) await this.removeStill(this.still_path)
+            if(this.profile_path) await this.removeProfile(this.profile_path)
+            if(this.logo_path) await this.removeLogo(this.logo_path) 
+            throw(err)
+        }
     }
 
     async $beforeDelete(context){
