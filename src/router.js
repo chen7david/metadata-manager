@@ -14,6 +14,7 @@ router.param('movie_id', paramLoader({
 router.get('/tmdb-movies', movies.search)
 router.get('/movies', movies.index)
 router.get('/import-movie/:movie_id/id', movies.import)
+router.get('/delete-movie/:movie_id/id', movies.delete)
 
 router.get('/tmdb-shows', shows.search)
 router.get('/import-show/:id/id', shows.import)

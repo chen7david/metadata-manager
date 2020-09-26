@@ -25,8 +25,6 @@ module.exports = {
             const data = await Movie.transaction(async (trx) => {
                 const movie = await Movie.query(trx).insert(value).returning('*')
                 await movie.$relatedQuery('genres', trx).relate(match.genres.map(o => o.id))
-                if(movie.poster_path) await ctx.tmdb.savePoster(movie.poster_path)
-                if(movie.backdrop_path) await ctx.tmdb.saveBackdrop(movie.backdrop_path) 
                 return await Movie.query(trx)
                     .where('id', movie.id)
                     .withGraphFetched('genres')
@@ -62,8 +60,7 @@ module.exports = {
     },
 
     delete: async (ctx) => {
-        const { id } = ctx.params
-        const exists = await Movie.query().where('id', id).first()
-        if(exists) return ctx.body = ctx.cargo.setDetail('duplicate', 'movie id')
+        const deleted = await ctx.state.movie.$query().delete()
+        ctx.body = ctx.cargo.setPayload({deleted})
     },
 }

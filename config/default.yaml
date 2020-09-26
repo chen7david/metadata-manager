@@ -4,6 +4,7 @@ server:
     hostname: 192.168.50.128
     port: 8000
 directory:
+    public: public
     image: image
 tmdb:
     apiKey: 'c729bbc07bb8542dd22c1d740f0c5bf5'

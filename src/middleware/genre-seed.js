@@ -1,13 +1,4 @@
-const { Genre, Directory } = require('./../models')
-const { tmdb:{sizes} } = require('config')
-const directory = new Directory('public')
-
-const run = async () => {
-    
-    for(size of sizes.all){
-        directory.mkfolder(`image/${size}`)
-    }
-}
+const { Genre } = require('./../models')
 
 const genres = [
     {
@@ -130,5 +121,4 @@ const main = async () => {
         }
     }
 }
-run()
 main()
