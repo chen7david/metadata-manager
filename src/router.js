@@ -37,12 +37,13 @@ router.delete('/movie/:movieId/id', movies.delete)
 router.get('/tmdb-shows', shows.tmdbSearch)
 router.get('/shows', shows.index)
 router.get('/import-show/:show_id/id', shows.import)
-// router.get('/show/:showId/id', shows.view)
+router.get('/show/:showId/id', shows.view)
 router.delete('/show/:showId/id', shows.delete)
 
 /* META */
 router.get('/genres', meta.genres)
 router.get('/trending', meta.trending)
+router.get('/fix', meta.getMissingImages)
 
 
 module.exports = router

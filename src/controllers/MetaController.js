@@ -1,5 +1,5 @@
 const { dd } = require('koatools')
-const { Genre } = require('../models')
+const { Genre, Movie, Show, Season, Episode } = require('../models')
 
 module.exports = {
     
@@ -19,5 +19,15 @@ module.exports = {
         if(type == 'shows') trending = await ctx.tmdb.shows().trending(window) 
         if(type == 'people') trending = await ctx.tmdb.shows().trending(window) 
         ctx.body = trending 
+    },
+
+    getMissingImages: async (ctx) => {
+        const movies = await Movie.getMissingImages()
+        const shows = await Show.getMissingImages()
+        const seasons = await Season.getMissingImages()
+        const episodes = await Episode.getMissingImages()
+        const missing = [...movies, ...shows, ...seasons, ...episodes]
+        dd({missing})
+        ctx.body = ctx.cargo.setPayload(missing)
     },
 }

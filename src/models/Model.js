@@ -40,7 +40,6 @@ class BaseModel extends OM(Model) {
     }
 
     async $beforeDelete(context){
-        dd('(2) Model.$beforeDelete function got called')
         await super.$beforeInsert(context)
         if(this.poster_path) await this.removePoster(this.poster_path)
         if(this.backdrop_path) await this.removeBackdrop(this.backdrop_path)
@@ -67,8 +66,45 @@ class BaseModel extends OM(Model) {
         return imageURL.concat(size, name)
     }
 
+    getImagePath(size, name){
+        return path.join(this.getImageDirectoryPath(), size, name)
+    }
+
     getImageDirectoryPath(){
         return path.resolve(__dirname, '../../', directory.public, directory.image)
+    }
+
+    static async getMissingImages(){
+        let missing = []
+        const items = await this.query()
+        let self = new this()
+
+        for(let item of items){
+            const {poster_path, backdrop_path, still_path} = item
+            if(poster_path){
+                for(let size of sizes.poster){
+                    const dest = self.getImagePath(size, poster_path)
+                    if(!self.exist(dest)) missing.push({size, imageName: poster_path, dest})
+                }
+            }
+            if(backdrop_path){
+                for(let size of sizes.backdrop){
+                    const dest = self.getImagePath(size, backdrop_path)
+                    if(!self.exist(dest)) missing.push({size, imageName: backdrop_path, dest})
+                }
+            }
+            if(still_path){
+                for(let size of sizes.still){
+                    const dest = self.getImagePath(size, still_path)
+                    if(!self.exist(dest)) missing.push({size, imageName: still_path, dest})
+                }
+            }
+        }
+        for(let item of missing){
+            const {dest, size, imageName} = item
+            await self.download(dest, self.getImageURL(size, imageName))
+        }
+        return missing
     }
 
     async savePoster(path){
@@ -102,14 +138,12 @@ class BaseModel extends OM(Model) {
     }
 
     async removePoster(path){
-        dd({path})
         for(let size of sizes.poster){
             await this.removeImage(size, path)
         }
     }
 
     async removeBackdrop(path){
-        dd({path})
         for(let size of sizes.backdrop){
             await this.removeImage(size, path)
         }
@@ -141,7 +175,7 @@ class BaseModel extends OM(Model) {
     }
 
     async removeImage(size, imagePath){
-        let filePath = path.join(this.getImageDirectoryPath(), size, imagePath)
+        let filePath = this.getImagePath(size, imagePath)
         if(this.exist(filePath)) this.rm(filePath)
     }
 

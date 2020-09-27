@@ -7,6 +7,7 @@ module.exports = {
     index: async (ctx) => {
         const { year, name } = ctx.request.query
         const shows = await Show.query()
+        await Show.getRecordsWithMissingFiles()
         ctx.body = ctx.cargo.setPayload(shows)
     },
 
@@ -45,10 +46,8 @@ module.exports = {
         }
     },
 
-    create: async (ctx) => {
-        const { search, year } = ctx.request.query
-        const shows = await ctx.tmdb.shows().search(search,{ year})
-        ctx.body = shows
+    view: async (ctx) => {
+        ctx.body = ctx.cargo.setPayload(ctx.state.show)
     },
 
     update: async (ctx) => {
