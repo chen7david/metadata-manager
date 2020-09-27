@@ -1,5 +1,5 @@
 const Model = require('./Model')
-
+const { dd } = require('koatools')
 class Show extends Model {
 
     async $beforeInsert(context){
@@ -8,8 +8,11 @@ class Show extends Model {
     }
 
     async $beforeDelete(context){
-        await super.$beforeInsert(context)
-        await this.$relatedQuery('seasons').delete() 
+        await super.$beforeDelete(context)
+        const seasons = await this.$relatedQuery('seasons')
+        for(let season of seasons){
+            await season.$query().delete()
+        } 
     }
 
     static get relationMappings(){

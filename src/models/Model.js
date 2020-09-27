@@ -4,10 +4,10 @@ const knex = require('knex')(knexfile)
 const OM = require('koatools').BaseModel
 const { Model } = require('objection')
 const { deburr } = require('lodash')
-const { dd } = require('koatools')
 const path = require('path')
 const axios = require('axios')
 const fs = require('fs')
+const {dd} = require('koatools')
 
 
 Model.knex(knex)
@@ -40,6 +40,7 @@ class BaseModel extends OM(Model) {
     }
 
     async $beforeDelete(context){
+        dd('(2) Model.$beforeDelete function got called')
         await super.$beforeInsert(context)
         if(this.poster_path) await this.removePoster(this.poster_path)
         if(this.backdrop_path) await this.removeBackdrop(this.backdrop_path)
@@ -101,12 +102,14 @@ class BaseModel extends OM(Model) {
     }
 
     async removePoster(path){
+        dd({path})
         for(let size of sizes.poster){
             await this.removeImage(size, path)
         }
     }
 
     async removeBackdrop(path){
+        dd({path})
         for(let size of sizes.backdrop){
             await this.removeImage(size, path)
         }

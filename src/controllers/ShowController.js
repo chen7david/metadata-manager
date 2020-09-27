@@ -30,7 +30,7 @@ module.exports = {
                 if(error) throw(error)
                 const season = await show.$relatedQuery('seasons').insert(value)
                 for(let episode of item.episodes){
-                    const { error, value } = schema.createSeason.validate(episode)
+                    const { error, value } = schema.createEpisode.validate(episode)
                     if(error) throw(error)
                     await season.$relatedQuery('episodes').insert(value)
                 }
