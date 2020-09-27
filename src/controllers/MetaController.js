@@ -26,8 +26,12 @@ module.exports = {
         const shows = await Show.getMissingImages()
         const seasons = await Season.getMissingImages()
         const episodes = await Episode.getMissingImages()
-        const missing = [...movies, ...shows, ...seasons, ...episodes]
-        dd({missing})
-        ctx.body = ctx.cargo.setPayload(missing)
+        ctx.body = ctx.cargo.setPayload({
+            movies,
+            shows,
+            seasons,
+            episodes,
+            total: movies + shows + seasons + episodes
+        })
     },
 }

@@ -75,7 +75,7 @@ class BaseModel extends OM(Model) {
     }
 
     static async getMissingImages(){
-        let missing = []
+        let missing = 0
         const items = await this.query()
         let self = new this()
 
@@ -84,26 +84,32 @@ class BaseModel extends OM(Model) {
             if(poster_path){
                 for(let size of sizes.poster){
                     const dest = self.getImagePath(size, poster_path)
-                    if(!self.exist(dest)) missing.push({size, imageName: poster_path, dest})
+                    if(!self.exist(dest)) {
+                        await self.saveImage(size,poster_path)
+                        missing++
+                    }
                 }
             }
             if(backdrop_path){
                 for(let size of sizes.backdrop){
                     const dest = self.getImagePath(size, backdrop_path)
-                    if(!self.exist(dest)) missing.push({size, imageName: backdrop_path, dest})
+                    if(!self.exist(dest)) {
+                        await self.saveImage(size,poster_path)
+                        missing++
+                    }
                 }
             }
             if(still_path){
                 for(let size of sizes.still){
                     const dest = self.getImagePath(size, still_path)
-                    if(!self.exist(dest)) missing.push({size, imageName: still_path, dest})
+                    if(!self.exist(dest)) {
+                        await self.saveImage(size,poster_path)
+                        missing++
+                    }
                 }
             }
         }
-        for(let item of missing){
-            const {dest, size, imageName} = item
-            await self.download(dest, self.getImageURL(size, imageName))
-        }
+
         return missing
     }
 
