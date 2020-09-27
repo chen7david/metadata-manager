@@ -5,7 +5,6 @@ module.exports = {
     createMovie: Joi.object().options({abortEarly:false, stripUnknown:true}).keys({
         'id': Joi.number().required(),
         'imdb_id': Joi.string().allow(null,''),
-        'tmdb_id': Joi.string().allow(null,''),
         'keyphrase': Joi.string().allow(null,''),
         'title': Joi.string().allow(null,''),
         'original_title': Joi.string().allow(null,''),
@@ -25,6 +24,7 @@ module.exports = {
 
     createShow: Joi.object().options({abortEarly:false, stripUnknown:true}).keys({
         'id': Joi.number().required(),
+        'imdb_id': Joi.string().allow(null,''),
         'name': Joi.string(),
         'original_name': Joi.string(),
         'first_air_date': Joi.string().allow(null,''),
@@ -35,8 +35,12 @@ module.exports = {
         'vote_average': Joi.number().allow(null,''),
         'popularity': Joi.number().allow(null,''),
         'vote_count': Joi.number().allow(null,''),
+        'status': Joi.string().allow(null,''),
+        'type': Joi.string().allow(null,''),
+        'number_of_seasons': Joi.number().allow(null,''),
+        'number_of_episodes': Joi.number().allow(null,''),
+        'in_production': Joi.boolean().allow(null,''),
         'genres': Joi.array(),
-        // 'seasons': Joi.array(),
     }),
 
     createSeason: Joi.object().options({abortEarly:false, stripUnknown:true}).keys({
@@ -59,5 +63,7 @@ module.exports = {
         'season_number': Joi.number().required(),
         'show_id': Joi.number().required(),
         'genres': Joi.array(),
+        'still_path': Joi.string().allow(null,''),
+        'production_code': Joi.string().allow(null,''),
     }),
 }
