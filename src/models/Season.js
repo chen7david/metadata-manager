@@ -2,6 +2,11 @@ const Model = require('./Model')
 
 class Season extends Model {
 
+    async $beforeDelete(context){
+        await super.$beforeInsert(context)
+        await this.$relatedQuery('episodes').delete() 
+    }
+
     static get relationMappings(){ 
 
         const Show = require('./Show')

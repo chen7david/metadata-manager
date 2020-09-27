@@ -7,6 +7,11 @@ class Show extends Model {
         this.keyphrase = this.normalize(this.name)
     }
 
+    async $beforeDelete(context){
+        await super.$beforeInsert(context)
+        await this.$relatedQuery('seasons').delete() 
+    }
+
     static get relationMappings(){
         
         const Season = require('./Season')

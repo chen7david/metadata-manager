@@ -36,6 +36,7 @@ module.exports = {
         'popularity': Joi.number().allow(null,''),
         'vote_count': Joi.number().allow(null,''),
         'genres': Joi.array(),
+        // 'seasons': Joi.array(),
     }),
 
     createSeason: Joi.object().options({abortEarly:false, stripUnknown:true}).keys({
@@ -45,6 +46,7 @@ module.exports = {
         'poster_path': Joi.string().allow(null,''),
         'season_number': Joi.number().required(),
         'genres': Joi.array(),
+        // 'episodes': Joi.array(),
     }),
 
     createEpisode: Joi.object().options({abortEarly:false, stripUnknown:true}).keys({
