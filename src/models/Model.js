@@ -23,8 +23,8 @@ class BaseModel extends OM(Model) {
         try {
             if(this.poster_path) await this.savePoster(this.poster_path)
             if(this.backdrop_path) await this.saveBackdrop(this.backdrop_path)
-            if(this.still_path) await this.saveStill(this.still_path)
-            // if(this.profile_path) await this.saveProfile(this.profile_path)
+            // if(this.still_path) await this.saveStill(this.still_path)
+            if(this.profile_path) await this.saveProfile(this.profile_path)
             if(this.logo_path) await this.saveLogo(this.logo_path)
             if(this.genres && this.genres.length > 0){
                 await this.$relatedQuery('genres').relate(this.genres.map(o => o.id))
