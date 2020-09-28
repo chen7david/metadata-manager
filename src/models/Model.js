@@ -7,7 +7,7 @@ const { deburr } = require('lodash')
 const path = require('path')
 const axios = require('axios')
 const fs = require('fs')
-const {dd} = require('koatools')
+const { dd } = require('koatools')
 
 
 Model.knex(knex)
@@ -23,7 +23,7 @@ class BaseModel extends OM(Model) {
         try {
             if(this.poster_path) await this.savePoster(this.poster_path)
             if(this.backdrop_path) await this.saveBackdrop(this.backdrop_path)
-            if(this.still_path) await this.saveStill(this.still_path)
+            // if(this.still_path) await this.saveStill(this.still_path)
             if(this.profile_path) await this.saveProfile(this.profile_path)
             if(this.logo_path) await this.saveLogo(this.logo_path)
             if(this.genres && this.genres.length > 0){
@@ -32,7 +32,7 @@ class BaseModel extends OM(Model) {
         } catch (err) {
             if(this.poster_path) await this.removePoster(this.poster_path)
             if(this.backdrop_path) await this.removeBackdrop(this.backdrop_path)
-            if(this.still_path) await this.removeStill(this.still_path)
+            // if(this.still_path) await this.removeStill(this.still_path)
             if(this.profile_path) await this.removeProfile(this.profile_path)
             if(this.logo_path) await this.removeLogo(this.logo_path) 
             throw(err)
@@ -43,7 +43,7 @@ class BaseModel extends OM(Model) {
         await super.$beforeInsert(context)
         if(this.poster_path) await this.removePoster(this.poster_path)
         if(this.backdrop_path) await this.removeBackdrop(this.backdrop_path)
-        if(this.still_path) await this.removeStill(this.still_path)
+        // if(this.still_path) await this.removeStill(this.still_path)
         if(this.profile_path) await this.removeProfile(this.profile_path)
         if(this.logo_path) await this.removeLogo(this.logo_path)   
     }
@@ -99,15 +99,15 @@ class BaseModel extends OM(Model) {
                     }
                 }
             }
-            if(still_path){
-                for(let size of sizes.still){
-                    const dest = self.getImagePath(size, still_path)
-                    if(!self.exist(dest)) {
-                        await self.saveImage(size,poster_path)
-                        missing++
-                    }
-                }
-            }
+            // if(still_path){
+            //     for(let size of sizes.still){
+            //         const dest = self.getImagePath(size, still_path)
+            //         if(!self.exist(dest)) {
+            //             await self.saveImage(size,poster_path)
+            //             missing++
+            //         }
+            //     }
+            // }
         }
 
         return missing
@@ -125,11 +125,11 @@ class BaseModel extends OM(Model) {
         }
     }
 
-    async saveStill(path){
-        for(let size of sizes.still){
-            await this.saveImage(size, path)
-        }
-    }
+    // async saveStill(path){
+    //     for(let size of sizes.still){
+    //         await this.saveImage(size, path)
+    //     }
+    // }
 
     async saveLogo(path){
         for(let size of sizes.logo){
@@ -155,11 +155,11 @@ class BaseModel extends OM(Model) {
         }
     }
 
-    async removeStill(path){
-        for(let size of sizes.still){
-            await this.removeImage(size, path)
-        }
-    }
+    // async removeStill(path){
+    //     for(let size of sizes.still){
+    //         await this.removeImage(size, path)
+    //     }
+    // }
 
     async removeLogo(path){
         for(let size of sizes.logo){
@@ -211,7 +211,6 @@ class BaseModel extends OM(Model) {
     rm(dest){
         return fs.unlink(dest, (err) => err ? err : true) 
     }
-
 }
 
 module.exports = BaseModel

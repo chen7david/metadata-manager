@@ -7,7 +7,6 @@ module.exports = {
     index: async (ctx) => {
         const { year, name } = ctx.request.query
         const shows = await Show.query()
-        await Show.getRecordsWithMissingFiles()
         ctx.body = ctx.cargo.setPayload(shows)
     },
 
