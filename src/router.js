@@ -29,16 +29,17 @@ router.param('showId', paramLoader({
 /* MOVIES */
 router.get('/tmdb-movies', movies.tmdbSearch)
 router.get('/movies', movies.index)
-router.get('/import-movie/:movie_id/id', movies.import)
-router.get('/movie/:movieId/id', movies.view)
-router.delete('/movie/:movieId/id', movies.delete)
+router.get('/import-movie/:movie_id', movies.import)
+router.get('/movie/:movieId', movies.view)
+router.delete('/movie/:movieId', movies.delete)
 
 /* TV SHOWS */
 router.get('/tmdb-shows', shows.tmdbSearch)
 router.get('/shows', shows.index)
-router.get('/import-show/:show_id/id', shows.import)
-router.get('/show/:showId/id', shows.view)
-router.delete('/show/:showId/id', shows.delete)
+router.get('/import-show/:show_id', shows.import)
+router.get('/show/:showId', shows.view)
+router.delete('/show/:showId', shows.delete)
+router.patch('/show/:showId/season/:seasonId', shows.updateSeason)
 
 /* META */
 router.get('/genres', meta.genres)

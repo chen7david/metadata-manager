@@ -46,12 +46,23 @@ module.exports = {
     },
 
     view: async (ctx) => {
-        ctx.body = ctx.cargo.setPayload(ctx.state.show)
+        const show = await Show.query()
+        .where('id', ctx.state.show.id )
+        .withGraphFetched('seasons.[episodes]')
+        .first()
+        ctx.body = ctx.cargo.setPayload(show)
     },
 
     update: async (ctx) => {
         const { search, year } = ctx.request.query
         const shows = await ctx.tmdb.shows().search(search,{ year})
+        ctx.body = shows
+    },
+
+    updateSeason: async (ctx) => {
+        const { showId, seasonId } = ctx.params
+        const shows = await ctx.tmdb.shows().getById(showId)
+        dd({showId, seasonId, shows})
         ctx.body = shows
     },
 
