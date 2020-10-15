@@ -1,5 +1,5 @@
 server:
-    name: identity-manager-server
+    name: metadata-manager-server
     protocol: http
     hostname: 192.168.50.128
     port: 8000
