@@ -17,9 +17,10 @@ module.exports = {
 
     import: async (ctx) => {
         try {
-            const { movie_id } = ctx.params
-            if(ctx.state.movie) return ctx.body = ctx.cargo.setDetail('duplicate', 'movie id')
-            const match = await ctx.tmdb.movies().getById(movie_id)
+            const { movieId } = ctx.params
+            if(ctx.state.movie) return ctx.body = ctx.cargo.setPayload(ctx.state.movie)
+                .setDetail('duplicate', 'movie id')
+            const match = await ctx.tmdb.movies().getById(movieId)
             const { error, value } = schema.createMovie.validate(match)
             if(error) throw(error)
             const movie = await Movie.query().insert(value)

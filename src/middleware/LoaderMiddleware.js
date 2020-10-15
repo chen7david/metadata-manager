@@ -1,22 +1,24 @@
 const models = require('./../models')
+const { dd } = require('koatools')
 
 module.exports = {
 
-    paramGetter: (params) => async (id, ctx, next) => {
-        const object = await models[params.model].query()
+    paramGetter: (model) => async (id, ctx, next) => {
+        dd({models})
+        const object = await models[model].query()
             .where('id', id)
             .first()
 
         if(!object) return ctx.body = ctx.cargo.setDetail('invalid', 'id')
-        ctx.state[params.model.toLowerCase()]= object
+        ctx.state[model.toLowerCase()]= object
         return next()
     },
 
-    paramLoader: (params) => async (id, ctx, next) => {
-        const object = await models[params.model].query()
+    paramLoader: (model) => async (id, ctx, next) => {
+        const object = await models[model].query()
             .where('id', id)
             .first()
-        if(object) ctx.state[params.model.toLowerCase()]= object
+        if(object) ctx.state[model.toLowerCase()]= object
         return next()
     }
 }
