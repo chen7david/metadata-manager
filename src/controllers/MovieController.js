@@ -4,12 +4,12 @@ const schema = require('./../middleware/ValidationSchema')
 module.exports = {
 
     index: async (ctx) => {
-        const { year, name } = ctx.request.query
+        const { year, search } = ctx.request.query
         const movies = await Movie.query()
         ctx.body = ctx.cargo.setPayload(movies)
     },
 
-    tmdbSearch: async (ctx) => {
+    searchTmdb: async (ctx) => {
         const { search, year } = ctx.request.query
         const movies = await ctx.tmdb.movies().search(search,{ year })
         ctx.body = ctx.cargo.setPayload(movies)
@@ -36,13 +36,13 @@ module.exports = {
     create: async (ctx) => {
         const { search, year } = ctx.request.query
         const movies = await ctx.tmdb.movies().search(search,{ year})
-        ctx.body = movies
+        ctx.body = ctx.cargo.setPayload(movies)
     },
 
     update: async (ctx) => {
         const { search, year } = ctx.request.query
         const movies = await ctx.tmdb.movies().search(search,{ year})
-        ctx.body = movies
+        ctx.body = ctx.cargo.setPayload(movies)
     },
 
     delete: async (ctx) => {

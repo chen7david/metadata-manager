@@ -13,7 +13,7 @@ module.exports = {
     tmdbSearch: async (ctx) => {
         const { search } = ctx.request.query
         const shows = await ctx.tmdb.shows().search(search)
-        ctx.body = shows
+        ctx.body = ctx.cargo.setPayload(shows)
     },
 
     import: async (ctx) => {
@@ -56,14 +56,14 @@ module.exports = {
     update: async (ctx) => {
         const { search, year } = ctx.request.query
         const shows = await ctx.tmdb.shows().search(search,{ year})
-        ctx.body = shows
+        ctx.body = ctx.cargo.setPayload(shows)
     },
 
     updateSeason: async (ctx) => {
         const { showId, seasonId } = ctx.params
         const shows = await ctx.tmdb.shows().getById(showId)
         dd({showId, seasonId, shows})
-        ctx.body = shows
+        ctx.body = ctx.cargo.setPayload(shows)
     },
 
     delete: async (ctx) => {

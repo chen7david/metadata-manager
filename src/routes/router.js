@@ -27,7 +27,7 @@ router.param('showId', paramLoader({
 }))
 
 /* MOVIES */
-router.get('/tmdb-movies', movies.searchTmdb)
+router.get('/tmdb-movies', movies.tmdbSearch)
 router.get('/movies', movies.index)
 router.get('/tmdb-import-movies/:movie_id', movies.import)
 router.get('/movies/:movieId', movies.view)

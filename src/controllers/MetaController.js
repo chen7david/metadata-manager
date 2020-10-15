@@ -9,7 +9,7 @@ module.exports = {
         if(type == 'movies') genres = await ctx.tmdb.movies().genres() 
         if(type == 'shows') genres = await ctx.tmdb.shows().genres() 
         if(!type) genres = await Genre.query()
-        ctx.body = genres    
+        ctx.body = ctx.cargo.setPayload(genres)
     },
 
     trending: async (ctx) => {
@@ -18,7 +18,7 @@ module.exports = {
         if(type == 'movies') trending = await ctx.tmdb.movies().trending(window) 
         if(type == 'shows') trending = await ctx.tmdb.shows().trending(window) 
         if(type == 'people') trending = await ctx.tmdb.shows().trending(window) 
-        ctx.body = trending 
+        ctx.body = ctx.cargo.setPayload(trending)
     },
 
     getMissingImages: async (ctx) => {
