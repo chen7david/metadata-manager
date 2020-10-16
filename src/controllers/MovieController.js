@@ -5,8 +5,11 @@ module.exports = {
 
     index: async (ctx) => {
         const { year, search } = ctx.request.query
-        const movies = await Movie.query()
-        ctx.body = ctx.cargo.setPayload(movies)
+        const query = Movie.query()
+        if(search) query.where('keyphrase', 'like', `%${search}%`)
+        if(year) query.andWhere('release_date', 'like', `%${year}%`)
+        const match = await query
+        ctx.body = ctx.cargo.setPayload(match)
     },
 
     searchTmdb: async (ctx) => {

@@ -5,9 +5,12 @@ const schema = require('./../middleware/ValidationSchema')
 module.exports = {
 
     index: async (ctx) => {
-        const { year, name } = ctx.request.query
-        const shows = await Show.query()
-        ctx.body = ctx.cargo.setPayload(shows)
+        const { year, search } = ctx.request.query
+        const query = Show.query()
+        if(search) query.where('keyphrase', 'like', `%${search}%`)
+        if(year) query.andWhere('first_air_date', 'like', `%${year}%`)
+        const match = await query
+        ctx.body = ctx.cargo.setPayload(match)
     },
 
     searchTmdb: async (ctx) => {
