@@ -62,6 +62,7 @@ module.exports = {
     updateSeason: async (ctx) => {
         const { id, seasonNumber } = ctx.params
         const show = await ctx.tmdb.shows().seasons([seasonNumber]).getById(id)
+        if(!show) return ctx.body = ctx.cargo.setDetail('invalid', 'show information')
         const season = await ctx.state.show.$relatedQuery('seasons')
             .where('season_number', seasonNumber).first()
         if(season){
