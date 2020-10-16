@@ -20,7 +20,7 @@ module.exports = {
         try {
             const { showId } = ctx.params
             if(ctx.state.show) return ctx.body = ctx.cargo.setDetail('duplicate', 'show id')
-            const match = await ctx.tmdb.shows().eager().getById(showId)
+            const match = await ctx.tmdb.shows().seasons().getById(showId)
             const { error, value } = schema.createShow.validate(match)
             if(error) throw(error)
             const show = await Show.query().insert(value)
