@@ -1,4 +1,5 @@
 const Model = require('./Model')
+const { dd } = require('koatools')
 
 class Movie extends Model {
     
@@ -10,6 +11,11 @@ class Movie extends Model {
     async $beforeUpdate(context){
         await super.$beforeInsert(context)
         this.keyphrase = this.normalize(this.name)
+    }
+
+    async $afterFind(context){
+        await super.$afterFind(context)
+        this.genres = await this.$relatedQuery('genres')
     }
 
     static get relationMappings(){
