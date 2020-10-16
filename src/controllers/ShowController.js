@@ -76,14 +76,18 @@ module.exports = {
                 dd({err})
             }
         }else{
-            let seasonItem = show.seasons[0]
-            const { error, value } = schema.createSeason.validate(seasonItem)
-            if(error) throw(error)
-            const season = await ctx.state.show.$relatedQuery('seasons').insert(value)
-            for(let episode of seasonItem.episodes){
-                const { error, value } = schema.createEpisode.validate(episode)
+            try {
+                let seasonItem = show.seasons[0]
+                const { error, value } = schema.createSeason.validate(seasonItem)
                 if(error) throw(error)
-                await season.$relatedQuery('episodes').insert(value)
+                const season = await ctx.state.show.$relatedQuery('seasons').insert(value)
+                for(let episode of seasonItem.episodes){
+                    const { error, value } = schema.createEpisode.validate(episode)
+                    if(error) throw(error)
+                    await season.$relatedQuery('episodes').insert(value)
+                }
+            } catch (err) {
+                dd(err)
             }
         }
         ctx.body = ctx.cargo.setPayload(show)
