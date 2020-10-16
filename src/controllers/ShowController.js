@@ -90,7 +90,11 @@ module.exports = {
                 dd(err)
             }
         }
-        ctx.body = ctx.cargo.setPayload(show)
+
+        const result = await Show.query() .where('id', ctx.state.show.id)
+                .withGraphFetched('seasons.[episodes]')
+                .first()
+        ctx.body = ctx.cargo.setPayload(result)
     },
 
     delete: async (ctx) => {
