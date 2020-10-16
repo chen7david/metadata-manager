@@ -6,6 +6,11 @@ class Episode extends Model {
         await super.$beforeInsert(context)
         this.keyphrase = this.normalize(this.name)
     }
+
+    async $beforeUpdate(context){
+        await super.$beforeInsert(context)
+        this.keyphrase = this.normalize(this.name)
+    }
     
     static get relationMappings(){ 
 

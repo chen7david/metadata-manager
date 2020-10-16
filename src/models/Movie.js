@@ -7,6 +7,11 @@ class Movie extends Model {
         this.keyphrase = this.normalize(this.title)
     }
 
+    async $beforeUpdate(context){
+        await super.$beforeInsert(context)
+        this.keyphrase = this.normalize(this.name)
+    }
+
     static get relationMappings(){
         
         const Genre = require('./Genre')

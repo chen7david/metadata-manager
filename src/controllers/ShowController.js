@@ -1,5 +1,5 @@
 const { dd } = require('koatools')
-const { Show } = require('./../models')
+const { Show, Episode } = require('./../models')
 const schema = require('./../middleware/ValidationSchema')
 
 module.exports = {
@@ -60,10 +60,19 @@ module.exports = {
     },
 
     updateSeason: async (ctx) => {
-        const { showId, seasonId } = ctx.params
-        const shows = await ctx.tmdb.shows().seasons([seasonId]).getById(showId)
-        dd({showId, seasonId, shows})
-        ctx.body = ctx.cargo.setPayload(shows)
+        const { id, seasonNumber } = ctx.params
+        const show = await ctx.tmdb.shows().seasons([seasonNumber]).getById(id)
+        try {
+            for(episode of show.seasons[0].episodes){
+                delete episode.crew
+                delete episode.guest_stars
+                await Episode.query().update(episode).where('id', episode.id)
+            }
+                
+        } catch (err) {
+            dd({err})
+        }
+        ctx.body = ctx.cargo.setPayload(show)
     },
 
     delete: async (ctx) => {

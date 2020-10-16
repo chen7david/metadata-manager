@@ -7,6 +7,11 @@ class Show extends Model {
         this.keyphrase = this.normalize(this.name)
     }
 
+    async $beforeUpdate(context){
+        await super.$beforeInsert(context)
+        this.keyphrase = this.normalize(this.name)
+    }
+
     async $beforeDelete(context){
         await super.$beforeDelete(context)
         const seasons = await this.$relatedQuery('seasons')

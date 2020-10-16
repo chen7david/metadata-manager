@@ -13,6 +13,6 @@ router.get('/tmdb-shows/:showId', controller.import)
 router.get('/shows', controller.index)
 router.get('/shows/:id', controller.view)
 router.delete('/shows/:id', controller.delete)
-router.patch('/shows/:id/season/:seasonId', controller.updateSeason)
+router.patch('/shows/:id/season/:seasonNumber', controller.updateSeason)
 
 module.exports = router
