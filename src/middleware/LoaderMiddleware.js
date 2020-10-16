@@ -4,7 +4,6 @@ const { dd } = require('koatools')
 module.exports = {
 
     paramGetter: (model) => async (id, ctx, next) => {
-        dd({models})
         const object = await models[model].query()
             .where('id', id)
             .first()

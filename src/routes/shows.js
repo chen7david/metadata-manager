@@ -6,7 +6,6 @@ const { dd } = require('koatools')
 
 router.param('id', paramGetter('Show'))
 router.param('showId', paramLoader('Show'))
-router.param('seasonId', paramGetter('Season'))
 
 /* MOVIES */
 router.get('/tmdb-shows', controller.searchTmdb)

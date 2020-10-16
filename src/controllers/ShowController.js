@@ -18,9 +18,9 @@ module.exports = {
 
     import: async (ctx) => {
         try {
-            const { show_id } = ctx.params
+            const { showId } = ctx.params
             if(ctx.state.show) return ctx.body = ctx.cargo.setDetail('duplicate', 'show id')
-            const match = await ctx.tmdb.shows().eager().getById(show_id)
+            const match = await ctx.tmdb.shows().eager().getById(showId)
             const { error, value } = schema.createShow.validate(match)
             if(error) throw(error)
             const show = await Show.query().insert(value)
@@ -61,7 +61,7 @@ module.exports = {
 
     updateSeason: async (ctx) => {
         const { showId, seasonId } = ctx.params
-        const shows = await ctx.tmdb.shows().getById(showId)
+        const shows = await ctx.tmdb.shows().seasons([seasonId]).getById(showId)
         dd({showId, seasonId, shows})
         ctx.body = ctx.cargo.setPayload(shows)
     },
