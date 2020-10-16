@@ -4,21 +4,21 @@
 Name | Method | URL
 --- | --- | --- | 
 search movies on tmdb | GET | /tmdb-movies?search=nemo&year=2017
-search movie | GET | /import-movies/12
-import movie | GET | /movies/12
-search movies | GET | /tmdb-movies?search=nemo&year=2017
-import movie | GET | /import-movies/12
-import movie | GET | /movies/12
+search movie | GET | /tmdb-movies/:id
+get movie | GET | /movies/:id
+search movies | GET | /movies?search=nemo&year=2017
+delte movie | DELETE | /movies/:id
 
 ### Shows API
 Name | Method | URL
 --- | --- | --- | 
 search show on tmdb | GET | /tmdb-shows?search=pokemon&year=2017
 search show | GET | /shows?search=pokemon&year=2017
-import show | GET | /tmdb-shows/4602
+import show | GET | /tmdb-shows/:id
 get all shows | GET | /shows
-get show | GET | /shows/4602
-update show season episodes | UPDATE | /shows/67198/season/2
+get show | GET | /shows/:id
+update show season episodes | UPDATE | /shows/:id/season/:number
+delte show | DELETE | /shows/:id
 
 ### Trending API
 Name | Method | URL
