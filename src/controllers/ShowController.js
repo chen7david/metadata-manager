@@ -10,7 +10,7 @@ module.exports = {
         ctx.body = ctx.cargo.setPayload(shows)
     },
 
-    tmdbSearch: async (ctx) => {
+    searchTmdb: async (ctx) => {
         const { search } = ctx.request.query
         const shows = await ctx.tmdb.shows().search(search)
         ctx.body = ctx.cargo.setPayload(shows)
