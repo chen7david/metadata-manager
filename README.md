@@ -3,6 +3,9 @@
 ### Movies API
 Name | Method | URL
 --- | --- | --- | 
+search movies on tmdb | GET | /tmdb-movies?search=nemo&year=2017
+search movie | GET | /import-movies/12
+import movie | GET | /movies/12
 search movies | GET | /tmdb-movies?search=nemo&year=2017
 import movie | GET | /import-movies/12
 import movie | GET | /movies/12
@@ -10,9 +13,12 @@ import movie | GET | /movies/12
 ### Shows API
 Name | Method | URL
 --- | --- | --- | 
-search show | GET | /tmdb-shows?search=pokemon&year=2017
+search show on tmdb | GET | /tmdb-shows?search=pokemon&year=2017
+search show | GET | /shows?search=pokemon&year=2017
 import show | GET | /import-shows/4602
-import show | GET | /shows/4602
+get all shows | GET | /shows
+get show | GET | /shows/4602
+update show season episodes | UPDATE | /shows/67198/season/2
 
 ### Trending API
 Name | Method | URL

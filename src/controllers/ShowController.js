@@ -62,15 +62,29 @@ module.exports = {
     updateSeason: async (ctx) => {
         const { id, seasonNumber } = ctx.params
         const show = await ctx.tmdb.shows().seasons([seasonNumber]).getById(id)
-        try {
-            for(episode of show.seasons[0].episodes){
-                delete episode.crew
-                delete episode.guest_stars
-                await Episode.query().update(episode).where('id', episode.id)
+        const season = await ctx.state.show.$relatedQuery('seasons')
+            .where('season_number', seasonNumber).first()
+        if(season){
+            try {
+                for(episode of show.seasons[0].episodes){
+                    delete episode.crew
+                    delete episode.guest_stars
+                    const result = await Episode.query().update(episode).where('id', episode.id)
+                    if(!result) await season.$relatedQuery('episodes').insert(episode)
+                }
+            } catch (err) {
+                dd({err})
             }
-                
-        } catch (err) {
-            dd({err})
+        }else{
+            let seasonItem = show.seasons[0]
+            const { error, value } = schema.createSeason.validate(seasonItem)
+            if(error) throw(error)
+            const season = await ctx.state.show.$relatedQuery('seasons').insert(value)
+            for(let episode of seasonItem.episodes){
+                const { error, value } = schema.createEpisode.validate(episode)
+                if(error) throw(error)
+                await season.$relatedQuery('episodes').insert(value)
+            }
         }
         ctx.body = ctx.cargo.setPayload(show)
     },
