@@ -24,6 +24,8 @@ app.on('error', ErrorLogger)
 
 /* ROUTES */
 app.use(router.movies.routes())
+app.use(router.shows.routes())
+app.use(router.meta.routes())
 app.use(NotFoundHandler)
 
 /* SERVER */

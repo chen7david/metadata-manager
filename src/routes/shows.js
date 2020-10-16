@@ -6,6 +6,7 @@ const { dd } = require('koatools')
 
 router.param('id', paramGetter('Show'))
 router.param('showId', paramLoader('Show'))
+router.param('seasonId', paramGetter('Season'))
 
 /* MOVIES */
 router.get('/tmdb-shows', controller.searchTmdb)
@@ -13,5 +14,6 @@ router.get('/tmdb-shows/:showId', controller.import)
 router.get('/shows', controller.index)
 router.get('/shows/:id', controller.view)
 router.delete('/shows/:id', controller.delete)
+router.patch('/shows/:id/season/:seasonId', controller.updateSeason)
 
 module.exports = router
