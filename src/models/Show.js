@@ -12,6 +12,11 @@ class Show extends Model {
         this.keyphrase = this.normalize(this.name)
     }
 
+    async $afterFind(context){
+        await super.$afterFind(context)
+        this.genres = await this.$relatedQuery('genres')
+    }
+
     async $beforeDelete(context){
         await super.$beforeDelete(context)
         const seasons = await this.$relatedQuery('seasons')
