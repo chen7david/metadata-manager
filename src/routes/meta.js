@@ -6,6 +6,6 @@ const { dd } = require('koatools')
 /* META */
 router.get('/genres', controller.genres)
 router.get('/trending', controller.trending)
-router.get('/fix', controller.getMissingImages)
+router.get('/fix-metadata', controller.getMissingImages)
 
 module.exports = router

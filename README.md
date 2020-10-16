@@ -7,7 +7,7 @@ search movies on tmdb | GET | /tmdb-movies?search=nemo&year=2017
 search movie | GET | /tmdb-movies/:id
 get movie | GET | /movies/:id
 search movies | GET | /movies?search=nemo&year=2017
-delte movie | DELETE | /movies/:id
+delete movie | DELETE | /movies/:id
 
 ### Shows API
 Name | Method | URL
@@ -18,7 +18,7 @@ import show | GET | /tmdb-shows/:id
 get all shows | GET | /shows
 get show | GET | /shows/:id
 update show season episodes | UPDATE | /shows/:id/season/:number
-delte show | DELETE | /shows/:id
+delete show | DELETE | /shows/:id
 
 ### Trending API
 Name | Method | URL
@@ -33,4 +33,11 @@ Name | Method | URL
 --- | --- | --- | 
 movie genres| GET | /genres?type=movies
 show genres| GET | /genres?type=shows
+
+### Fix Mededata API
+Name | Method | URL
+--- | --- | --- | 
+fix metadata | GET | /fix-metadata
+
+
 
