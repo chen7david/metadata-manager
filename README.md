@@ -40,5 +40,8 @@ Name | Method | URL
 --- | --- | --- | 
 fix metadata | GET | /fix-metadata
 
-
+### Fix Mededata API
+Name | Method | URL
+--- | --- | --- | 
+get images | GET | /image/:size/:name.jpg
 
