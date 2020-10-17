@@ -34,7 +34,7 @@ module.exports = {
     },
 
     view: async (ctx) => {
-        ctx.body = ctx.cargo.setPayload(movie)
+        ctx.body = ctx.cargo.setPayload(ctx.state.movie)
     },
 
     create: async (ctx) => {

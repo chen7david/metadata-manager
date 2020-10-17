@@ -22,7 +22,8 @@ module.exports = {
     import: async (ctx) => {
         try {
             const { showId } = ctx.params
-            if(ctx.state.show) return ctx.body = ctx.cargo.setDetail('duplicate', 'show id')
+            if(ctx.state.show) return ctx.body = ctx.cargo.setPayload(ctx.state.show)
+                .setDetail('duplicate', 'show id')
             const match = await ctx.tmdb.shows().seasons().getById(showId)
             const { error, value } = schema.createShow.validate(match)
             if(error) throw(error)
