@@ -52,7 +52,14 @@ module.exports = {
     view: async (ctx) => {
         const show = await Show.query()
         .where('id', ctx.state.show.id )
-        .withGraphFetched('seasons.[episodes]')
+        .withGraphFetched('seasons(orderBySeason).[episodes(orderByEpisode)]').modifiers({
+            orderBySeason(builder) {
+                builder.orderBy('season_number');
+            },
+            orderByEpisode(builder) {
+                builder.orderBy('episode_number');
+            },
+        })
         .first()
         ctx.body = ctx.cargo.setPayload(show)
     },
