@@ -39,13 +39,13 @@ module.exports = {
 
     create: async (ctx) => {
         const { search, year } = ctx.request.query
-        const movies = await ctx.tmdb.movies().search(search,{ year})
+        const movies = await ctx.tmdb.movies().search(search,{year})
         ctx.body = ctx.cargo.setPayload(movies)
     },
 
     update: async (ctx) => {
         const { search, year } = ctx.request.query
-        const movies = await ctx.tmdb.movies().search(search,{ year})
+        const movies = await ctx.tmdb.movies().search(search,{year})
         ctx.body = ctx.cargo.setPayload(movies)
     },
 
