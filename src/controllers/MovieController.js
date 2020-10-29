@@ -8,7 +8,7 @@ module.exports = {
         const query = Movie.query()
         if(search) query.where('keyphrase', 'like', `%${search}%`)
         if(year) query.andWhere('release_date', 'like', `%${year}%`)
-        const match = await query
+        const match = await query.orderBy('release_date', 'desc')
         ctx.body = ctx.cargo.setPayload(match)
     },
 

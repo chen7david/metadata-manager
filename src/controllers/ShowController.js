@@ -9,7 +9,7 @@ module.exports = {
         const query = Show.query()
         if(search) query.where('keyphrase', 'like', `%${search}%`)
         if(year) query.andWhere('first_air_date', 'like', `%${year}%`)
-        const match = await query
+        const match = await query.orderBy('first_air_date', 'desc')
         ctx.body = ctx.cargo.setPayload(match)
     },
 
