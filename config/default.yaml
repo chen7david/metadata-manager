@@ -6,6 +6,11 @@ server:
 directory:
     public: public
     image: image
+lang:
+    - en
+    - zh
+    - nl
+    - sp
 tmdb:
     apiKey: 'c729bbc07bb8542dd22c1d740f0c5bf5'
     imageURL: 'http://image.tmdb.org/t/p/'

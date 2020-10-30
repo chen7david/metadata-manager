@@ -3,7 +3,7 @@ const knexfile = require('./../../knexfile').development
 const knex = require('knex')(knexfile)
 const OM = require('koatools').BaseModel
 const { Model } = require('objection')
-const { deburr } = require('lodash')
+const { deburr, padStart } = require('lodash')
 const path = require('path')
 const axios = require('axios')
 const fs = require('fs')
@@ -56,6 +56,36 @@ class BaseModel extends OM(Model) {
         delete json.deleted_at
         delete json.updated_at
         return json
+    }
+
+    mapMovie(match){
+        const name = this.clean(match.title)
+        const date = match.release_date
+        return {
+            folder: `${name} (${date})`,
+            file: `${name}`,
+        }
+    }
+
+    mapShow(show, episode){
+        const showname = this.clean(show.name)
+        const episodename = this.clean(episode.name)
+        const date = show.first_air_date
+        const s = padStart(episode.season_number,2,'0')
+        const e = padStart(episode.episode_number,3,'0')
+
+        return {
+            folder: `${showname} (${date})`,
+            file: `${showname} - S${s}E${e} - ${episodename}`,
+            season: `season - ${s}`,
+        }
+    }
+
+    clean(string){
+        return string
+            .replace(/:/g,' -')
+            .replace(/\//g,' ')
+            .replace(/\s\s+/g, ' ')
     }
 
     normalize(name){

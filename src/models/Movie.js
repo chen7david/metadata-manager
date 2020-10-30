@@ -1,4 +1,5 @@
 const Model = require('./Model')
+const { lang } = require('config')
 const { dd } = require('koatools')
 
 class Movie extends Model {
@@ -16,6 +17,9 @@ class Movie extends Model {
     async $afterFind(context){
         await super.$afterFind(context)
         this.genres = await this.$relatedQuery('genres')
+        const {folder, file } = this.mapMovie(this)
+        this.video = `/${folder}/${file}.mp4`
+        this.subtitles = lang.map(l => `/${folder}/${file}.${l}.vtt`)
     }
 
     static get relationMappings(){

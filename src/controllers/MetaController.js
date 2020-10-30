@@ -5,7 +5,7 @@ module.exports = {
     
     genres: async (ctx) => {
         const { type } = ctx.request.query
-        let genres = [] 
+        let genres = []
         if(type == 'movies') genres = await ctx.tmdb.movies().genres() 
         if(type == 'shows') genres = await ctx.tmdb.shows().genres() 
         if(!type) genres = await Genre.query()

@@ -1,5 +1,6 @@
 const { dd } = require('koatools')
 const { Show, Episode } = require('./../models')
+const { lang } = require('config')
 const schema = require('./../middleware/ValidationSchema')
 
 module.exports = {
@@ -61,6 +62,15 @@ module.exports = {
             },
         })
         .first()
+
+        for(let i = 0; i < show.seasons.length; i++){
+            for(let j = 0; j < show.seasons[i].episodes.length; j++){
+                const {folder, season, file } = 
+                show.mapShow(show, show.seasons[i].episodes[j])
+                show.seasons[i].episodes[j].video = `/${folder}/${season}/${file}.mp4`
+                show.seasons[i].episodes[j].subtitles = lang.map(l => `/${folder}/${season}/${file}.${l}.vtt`)
+            }
+        }
         ctx.body = ctx.cargo.setPayload(show)
     },
 
