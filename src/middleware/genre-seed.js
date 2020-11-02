@@ -120,5 +120,7 @@ const main = async () => {
             // console.log(err)
         }
     }
+    console.log('project was initialized: db created and seeded')
+    process.exit()
 }
 main()
