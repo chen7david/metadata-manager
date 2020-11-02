@@ -1,5 +1,4 @@
 const Koa = require('koa')
-const cors = require('kcors')
 const bodyParser = require('koa-bodyparser')
 const router = require('./routes')
 const { server, tmdb: {apiKey}} = require('config')
@@ -15,7 +14,6 @@ const {
 } = require('koatools')
 
 /* MIDDLEWARE */
-app.use(cors())
 app.use(bodyParser())
 app.use(cargo())
 app.use(tmdb({apiKey}))
