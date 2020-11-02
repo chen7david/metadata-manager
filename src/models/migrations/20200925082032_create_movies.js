@@ -15,7 +15,6 @@ exports.up = function(knex) {
         table.string('release_date') 
         table.string('status')
         table.string('tagline')
-        table.string('video')
         table.boolean('adult').defaultTo(false)
 		table.timestamps(true, true)
 	})

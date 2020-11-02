@@ -58,29 +58,6 @@ class BaseModel extends OM(Model) {
         return json
     }
 
-    mapMovie(match){
-        const name = this.clean(match.title)
-        const date = match.release_date
-        return {
-            folder: `${name} (${date})`,
-            file: `${name}`,
-        }
-    }
-
-    mapShow(show, episode){
-        const showname = this.clean(show.name)
-        const episodename = this.clean(episode.name)
-        const date = show.first_air_date
-        const s = padStart(episode.season_number,2,'0')
-        const e = padStart(episode.episode_number,3,'0')
-
-        return {
-            folder: `${showname} (${date})`,
-            file: `${showname} - S${s}E${e} - ${episodename}`,
-            season: `season - ${s}`,
-        }
-    }
-
     clean(string){
         return string
             .replace(/:/g,' -')

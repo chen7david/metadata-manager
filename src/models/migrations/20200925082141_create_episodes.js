@@ -11,7 +11,6 @@ exports.up = function(knex) {
       table.integer('season_number')
       table.string('vote_average')
       table.string('vote_count')
-      table.string('video')
       table.integer('show_id').references('id').inTable('shows').onDelete('CASCADE').index()
       table.integer('season_id').references('id').inTable('seasons').onDelete('CASCADE').index()
       table.timestamps(true, true)
