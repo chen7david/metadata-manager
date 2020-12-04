@@ -15,7 +15,9 @@ module.exports = {
         }else if(search && source){
             /* Search External Sources */
             let data = { results: [] }
+            // Add your list of cources here ...
             if(source == 'tmdb') data = await ctx.$tmdb.movies().search(search, {year}).get()
+            
             const { results } = data
             return ctx.body = ctx.cargo.setPayload(results)
         }else if(search) {

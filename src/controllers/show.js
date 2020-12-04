@@ -14,8 +14,11 @@ module.exports = {
             }
         }else if(search && source){
             /* Search External Sources */
-            const { results } = await ctx.$tmdb.shows().search(search, {year}).get()
-            ctx.body = ctx.cargo.setPayload(results)
+            let data = { results: [] }
+            // Add your list of cources here ...
+            if(source == 'tmdb') data = await ctx.$tmdb.shows().search(search, {year}).get()
+            const { results } = data
+            return ctx.body = ctx.cargo.setPayload(results)
         }else if(search) {
             /* Search Local Sources */
             ctx.body = ctx.cargo.setPayload([])
