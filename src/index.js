@@ -1,6 +1,7 @@
 const Koa = require('koa')
 const app = new Koa()
 const url = require('url')
+const cors = require('kcors')
 const router = require('./router')
 const bodyparser = require('koa-bodyparser')
 const { server, api } = require('config')
@@ -8,6 +9,7 @@ const { koatmdb } = require('tmdb-agent')
 const { cargo, dd } = require('koatools')
 
 /* MIDDLEWARE */
+app.use(cors())
 app.use(bodyparser())
 app.use(cargo())
 app.use(koatmdb({
