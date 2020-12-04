@@ -1,0 +1,30 @@
+{
+  "name": "metadata-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chen7david/metadata-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chen7david/metadata-manager/issues"
+  },
+  "homepage": "https://github.com/chen7david/metadata-manager#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "config": "^3.3.3",
+    "js-yaml": "^3.14.0",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.0.0",
+    "koatools": "0.0.3",
+    "tmdb-agent": "^0.1.2"
+  }
+}
