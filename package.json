@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "seed": "node src/utils/genre-seed.js",
+    "dbreset": "knex migrate:rollback && knex migrate:latest",
+    "init": "npm run dbreset && npm run seed"
   },
   "repository": {
     "type": "git",
