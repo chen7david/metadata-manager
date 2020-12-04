@@ -6,10 +6,18 @@ const router = require('./router')
 const bodyparser = require('koa-bodyparser')
 const { server, api } = require('config')
 const { koatmdb } = require('tmdb-agent')
-const { cargo, dd } = require('koatools')
+const handler = require('./middleware/ErrorMutationHandler')
+const {
+    cargo, 
+    ErrorHandler, 
+    ErrorLogger, 
+    NotFoundHandler, 
+} = require('koatools')
 
 /* MIDDLEWARE */
 app.use(cors())
+app.use(ErrorHandler(handler))
+app.on('error', ErrorLogger)
 app.use(bodyparser())
 app.use(cargo())
 app.use(koatmdb({

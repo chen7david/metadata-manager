@@ -1,5 +1,5 @@
 const { Movie } = require('./../models')
-const { dd } = require('koatools')
+const { dd, validateBody } = require('koatools')
 
 module.exports = {
     
@@ -53,7 +53,7 @@ module.exports = {
         
         const { id } = ctx.params
         const { source } = ctx.request.query
-        dd({id, source})
+
         let data = null
 
         if(source){
