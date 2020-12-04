@@ -3,8 +3,16 @@
 module.exports = {
     
     search: async (ctx) => {
-        const { search, year, source } = ctx.request.query
-        if(search && source){
+        const { type, window, search, year, source } = ctx.request.query
+        if(type){
+            if(type == 'genres'){
+                const { genres } = await ctx.$tmdb.shows().genres().get()
+                return ctx.body = ctx.cargo.setPayload(genres)
+            }else if(type == 'trending'){
+                const { results } = await ctx.$tmdb.shows().trending(window).get()
+                return ctx.body = ctx.cargo.setPayload(results)
+            }
+        }else if(search && source){
             /* Search External Sources */
             const { results } = await ctx.$tmdb.shows().search(search, {year}).get()
             ctx.body = ctx.cargo.setPayload(results)
