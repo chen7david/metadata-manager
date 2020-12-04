@@ -9,13 +9,15 @@ const { cargo, dd } = require('koatools')
 
 /* MIDDLEWARE */
 app.use(bodyparser())
+app.use(cargo())
 app.use(koatmdb({
     apiKey: api.tmdb.apikey,
     timeout: 18000
 }))
 
 /* ROUTES */
-// app.use(router.routes())
+app.use(router.movie.routes())
+app.use(router.show.routes())
 
 app.listen(server.port, () => {
     console.log('server running at: ' + url.format(server))

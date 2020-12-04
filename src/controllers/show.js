@@ -6,7 +6,7 @@ module.exports = {
         const { search, year, source } = ctx.request.query
         if(search && source){
             /* Search External Sources */
-            const { results } = await ctx.$tmdb.movies().search(search, {year}).get()
+            const { results } = await ctx.$tmdb.shows().search(search, {year}).get()
             ctx.body = ctx.cargo.setPayload(results)
         }else if(search) {
             /* Search Local Sources */
