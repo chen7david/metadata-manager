@@ -21,10 +21,13 @@
     "axios": "^0.21.0",
     "config": "^3.3.3",
     "js-yaml": "^3.14.0",
+    "knex": "^0.21.12",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
     "koatools": "0.0.3",
+    "objection": "^2.2.3",
+    "pg": "^8.5.1",
     "tmdb-agent": "^0.1.2"
   }
 }

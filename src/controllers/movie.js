@@ -63,5 +63,25 @@ module.exports = {
         }
 
         return ctx.body = ctx.cargo.setPayload(data)
-    }
+    },
+
+    create: async (ctx) => {
+        
+        const { id } = ctx.params
+        const { source } = ctx.request.query
+        let data = null
+
+        if(source){
+            
+            /* Search External Sources */
+            // Add your list of cources here ...
+            if(source == 'tmdb') data = await ctx.$tmdb.movies().withId(id).get()
+            
+        }else{
+            
+        }
+
+        return ctx.body = ctx.cargo.setPayload(data)
+    },
+
 }
