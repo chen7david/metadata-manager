@@ -1,4 +1,5 @@
 const { Movie } = require('./../models')
+const { dd } = require('koatools')
 
 module.exports = {
     
@@ -52,6 +53,7 @@ module.exports = {
         
         const { id } = ctx.params
         const { source } = ctx.request.query
+        dd({id, source})
         let data = null
 
         if(source){
@@ -69,7 +71,7 @@ module.exports = {
 
     create: async (ctx) => {
         const content = ctx.request.body
-
+        dd(content)
         ctx.body = ctx.cargo.setPayload(content)
     },
 
