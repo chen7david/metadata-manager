@@ -1,4 +1,4 @@
-
+const { Movie } = require('./../models')
 
 module.exports = {
     
@@ -33,13 +33,15 @@ module.exports = {
 
         }else if(search) {
            
-             /* Search Local Sources */
-             payload = []
+            /* Search Local Sources */
+            const query = Movie.query().where('keyphrase', 'like', `%${search}%`)
+            if(year) query.andWhere('release_date', 'like', `%${year}%`)
+            payload = await query.orderBy('release_date', 'desc')
 
         }else {
             
             /* Return All */
-            payload = []
+            payload = await Movie.query()
 
         }
         
