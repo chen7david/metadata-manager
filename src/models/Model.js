@@ -13,6 +13,7 @@ class BaseModel extends OM(Model) {
 
     async $afterInsert(context){
         await super.$afterInsert(context)
+        if(this.genres) await this.$relatedQuery('genres').relate(this.genres.map(o => o.id))
     }
 
     async $beforeDelete(context){
