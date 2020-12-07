@@ -4,7 +4,7 @@ const { validateBody } = require('koatools')
 const { createMovie } = require('./../middleware').ValidationSchema
 
 /* ROUTES */
-router.get('/movies', controller.search)
+router.get('/movies', controller.index)
 router.post('/movies', validateBody(createMovie), controller.create)
 router.get('/movies/:id', controller.view)
 

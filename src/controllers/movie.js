@@ -1,11 +1,20 @@
 const { Movie } = require('./../models')
-const { dd, validateBody } = require('koatools')
+const { dd } = require('koatools')
 
 module.exports = {
     
-    search: async (ctx) => {
+    index: async (ctx) => {
 
-        const { type, window, search, year, source } = ctx.request.query
+        const { 
+            search,
+            year,
+            source,
+            type,
+            window,
+            pages,
+            limit 
+        } = ctx.request.query
+
         let payload = null
 
         if(type){
@@ -22,22 +31,21 @@ module.exports = {
 
             }
 
-        }else if(search && source){
-            
-            /* Search External Sources */
-            let data = { results: [] }
-            // Add your list of cources here ...
-            if(source == 'tmdb') data = await ctx.$tmdb.movies().search(search, {year}).get()
+        }else if(search){
 
-            const { results } = data
-            payload = results
-
-        }else if(search) {
-           
-            /* Search Local Sources */
-            const query = Movie.query().where('keyphrase', 'like', `%${search}%`)
-            if(year) query.andWhere('release_date', 'like', `%${year}%`)
-            payload = await query.orderBy('release_date', 'desc')
+            if(source){
+                /* Search External Sources */
+                let data = { results: [] }
+                // Add your list of cources here ...
+                if(source == 'tmdb') data = await ctx.$tmdb.movies().search(search, {year}).get()
+                const { results } = data
+                payload = results
+            }else{
+                /* Search Local Sources */
+                const query = Movie.query().where('keyphrase', 'like', `%${search}%`)
+                if(year) query.andWhere('release_date', 'like', `%${year}%`)
+                payload = await query.orderBy('release_date', 'desc')
+            }
 
         }else {
             
