@@ -13,6 +13,7 @@ delete movie by id | DELETE | /movies/:id
 ### Movies API Query Params
 name | route | path | params 
 --- | --- | --- | --- |
+paginate | GET | /movies | page=integer, limit=integer
 search | GET | /movies | search=string, year=1990
 trending | GET | /movies | type=trending, window=week
 genres | GET | /movies | type=genres, window=week
