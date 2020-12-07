@@ -9,8 +9,6 @@ create new movie | POST | /movies
 get movie by id | GET | /movies/:id
 patch movie by id | PATCH | /movies/:id
 delete movie by id | DELETE | /movies/:id
-download movie images | GET | /movies/:id?download=coverart
-create movie image thumbnails | GET | /movies/:id?create=thumbnails
 
 ### Movies API Query Params
 name | route | path | params 
@@ -18,6 +16,8 @@ name | route | path | params
 search | GET | /movies | search=string, year=1990
 trending | GET | /movies | type=trending, window=week
 genres | GET | /movies | type=genres, window=week
+download | GET | /movies/:id| download=coverart
+thumbnails | GET | /movies/:id| create=thumbnails
 
 
 
