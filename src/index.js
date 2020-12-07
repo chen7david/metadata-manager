@@ -4,7 +4,7 @@ const url = require('url')
 const cors = require('kcors')
 const router = require('./router')
 const bodyparser = require('koa-bodyparser')
-const { server, api } = require('config')
+const { server, tmdb } = require('confyg')
 const { koatmdb } = require('tmdb-agent')
 const handler = require('./middleware/ErrorMutationHandler')
 const {
@@ -21,7 +21,7 @@ app.on('error', ErrorLogger)
 app.use(bodyparser())
 app.use(cargo())
 app.use(koatmdb({
-    apiKey: api.tmdb.apikey,
+    apiKey: tmdb.apikey,
     timeout: 18000
 }))
 

@@ -23,7 +23,7 @@
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "axios": "^0.21.0",
-    "config": "^3.3.3",
+    "confyg": "0.0.4",
     "js-yaml": "^3.14.0",
     "kcors": "^2.2.2",
     "knex": "^0.21.12",
@@ -33,6 +33,7 @@
     "koatools": "0.0.3",
     "objection": "^2.2.3",
     "pg": "^8.5.1",
+    "sharp": "^0.26.3",
     "tmdb-agent": "^0.1.2"
   }
 }

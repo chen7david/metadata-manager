@@ -1,4 +1,4 @@
-const { database } = require('config')
+const { database } = require('confyg')
 
 module.exports = {
 

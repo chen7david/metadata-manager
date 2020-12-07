@@ -1,0 +1,19 @@
+@host = http://192.168.50.128:4000
+
+### GET MOVIES
+GET {{host}}/movies http/1.1
+
+### GET MOVIES TMDB
+GET {{host}}/movies?source=tmdb&search=moana http/1.1
+
+### GET SHOWS
+GET {{host}}/shows http/1.1
+
+
+### CREATE SHOWS
+POST {{host}}/movies http/1.1
+Content-Type: application/json
+
+{
+    "name": "raven"
+}
