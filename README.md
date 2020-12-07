@@ -27,6 +27,12 @@ Name | Method | URL
 return all shows in database | GET | /shows
 create new show | POST | /shows
 get show by id | GET | /shows/:id
+create season | POST | /shows/:id/season
+update season | PATCH | /season/:id
+delete season | DELETE | /season/:id
+create episode | POST | /shows/:id/season/:id/episode
+update episode | PATCH | /episode/:id
+delete episode | DELETE | /episode/:id
 patch show by id | PATCH | /shows/:id
 delete show by id | DELETE | /shows/:id
 
@@ -37,6 +43,7 @@ paginate | GET | /shows | page=integer, limit=integer
 search | GET | /shows | search=string, year=1990
 trending | GET | /shows | type=trending, window=week
 genres | GET | /shows | type=genres, window=week
+seasons | GET | /shows/:id| seasons[]=1&seasons[]=2 or seasons[]=-1
 download | GET | /shows/:id| download=coverart
 thumbnails | GET | /shows/:id| create=thumbnails
 
