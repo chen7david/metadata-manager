@@ -21,6 +21,26 @@ download | GET | /movies/:id| download=coverart
 thumbnails | GET | /movies/:id| create=thumbnails
 
 
+### Shows API
+Name | Method | URL
+--- | --- | --- | 
+return all shows in database | GET | /shows
+create new show | POST | /shows
+get show by id | GET | /shows/:id
+patch show by id | PATCH | /shows/:id
+delete show by id | DELETE | /shows/:id
+
+### Shows API Query Params
+name | route | path | params 
+--- | --- | --- | --- |
+paginate | GET | /shows | page=integer, limit=integer
+search | GET | /shows | search=string, year=1990
+trending | GET | /shows | type=trending, window=week
+genres | GET | /shows | type=genres, window=week
+download | GET | /shows/:id| download=coverart
+thumbnails | GET | /shows/:id| create=thumbnails
+
+
 
 /movies?type=trending&window=day
 /movies?type=trending&window=week
