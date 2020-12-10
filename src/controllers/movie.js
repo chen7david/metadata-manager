@@ -1,15 +1,12 @@
 const { Movie } = require('./../models')
-<<<<<<< HEAD
 const { deburr } = require('lodash')
 const { dd, validateBody } = require('koatools')
-=======
-const { dd } = require('koatools')
->>>>>>> d1cd1a464afa2a92495947b807f27b0f182f997d
 
 module.exports = {
 
     paramLoader:  async (id, ctx, next) => {
-        dd({id})
+        const { source } = ctx.request.query
+        if(source) return next()
         const movie = await Movie.query().where('id', id).first()
         if(!movie) return ctx.body = ctx.cargo.setDetail('invalid', 'movie-id')
         ctx.state.movie = movie
@@ -46,7 +43,6 @@ module.exports = {
 
         }else if(search){
 
-<<<<<<< HEAD
             const { results } = data
             payload = results
 
@@ -56,7 +52,7 @@ module.exports = {
             const query = Movie.query().where('keyphrase', 'like', `%${keyphrase}%`)
             if(year) query.andWhere('release_date', 'like', `%${year}%`)
             payload = await query.orderBy('release_date', 'desc')
-=======
+
             if(source){
                 /* Search External Sources */
                 let data = { results: [] }
@@ -71,7 +67,6 @@ module.exports = {
                 payload = await query.orderBy('release_date', 'desc')
             }
 
->>>>>>> d1cd1a464afa2a92495947b807f27b0f182f997d
         }else {
             
             /* Return All */
@@ -83,21 +78,23 @@ module.exports = {
 
     view: async (ctx) => {
         
-        const { _id } = ctx.params
-        const { source } = ctx.request.query
+        const { id } = ctx.params
+        const { source, download } = ctx.request.query
 
         let data = null
 
         if(source){
             
             /* Search External Sources */
-            // Add your list of cources here ...
-            if(source == 'tmdb') data = await ctx.$tmdb.movies().withId(_id).get()
+            // Add your list of sources here ...
+            if(source == 'tmdb') data = await ctx.$tmdb.movies().withId(id).get()
             
-        }else{
-            // data = ctx.state.movie
+        }else if(download){
+            // create directory
+        }else {
+            data = ctx.state.movie
         }
-        console.log({data, source, _id})
+        console.log({data, source, id})
         return ctx.body = ctx.cargo.setPayload(data)
     },
 
