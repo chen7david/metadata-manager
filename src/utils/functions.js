@@ -18,10 +18,10 @@ module.exports = {
     remove: (dest) =>  fs.promises.unlink(dest).then(() => true)
         .catch((err) =>{ console.log(err); return false }),
 
-    async mkdir: (path) => fs.promises.mkdir(path, { recursive: true })
+    mkdir: async (path) => fs.promises.mkdir(path, { recursive: true })
             .then(() => true).catch(() => false),
-            
-    async download(dest, url){
+
+    download: async (dest, url) => {
         try {
             const { data } = await axios.get(url, {responseType: 'stream'})
             const file = fs.createWriteStream(dest)
