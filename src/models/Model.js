@@ -1,6 +1,7 @@
 const knexfile = require('../../knexfile').development
 const knex = require('knex')(knexfile)
 const OM = require('koatools').BaseModel
+const { deburr } = require('lodash')
 const { Model } = require('objection')
 
 Model.knex(knex)
@@ -18,6 +19,10 @@ class BaseModel extends OM(Model) {
 
     async $beforeDelete(context){
         await super.$beforeInsert(context) 
+    }
+
+    normalize(name){
+        return deburr(name.toLowerCase())
     }
  
     $formatJson(json) {
