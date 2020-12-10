@@ -9,7 +9,7 @@ class Movie extends Model {
 
     async $beforeUpdate(context){
         await super.$beforeInsert(context)
-        this.keyphrase = this.normalize(this.title)
+        if(this.title) this.keyphrase = this.normalize(this.title)
     }
 
     async $afterFind(context){

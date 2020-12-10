@@ -17,7 +17,8 @@ module.exports = {
     },
 
     getIds: async (ctx) => {
-
+        const movie = await Movie.query()
+        ctx.body = ctx.cargo.setPayload(movie.map(m => m.id))
     },
     
     index: async (ctx) => {
@@ -123,6 +124,7 @@ module.exports = {
                     if(!exist(backdropDest)|| f) await sharp(backdroppath).resize(size).toFile(backdropDest)
                 }
             }
+            await ctx.state.movie.$query().patch({has_art: true})
         }else {
             data = ctx.state.movie
         }

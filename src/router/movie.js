@@ -12,5 +12,6 @@ router.post('/movies', validateBody(createMovie), controller.create)
 router.get('/movies/:id', controller.view)
 router.patch('/movies/:id', validateBody(createMovie), controller.update)
 router.delete('/movies/:id', controller.delete)
+router.get('/movies-id', controller.getIds)
 
 module.exports = router

@@ -10,6 +10,8 @@ exports.up = function(knex) {
         table.string('original_language')
         table.string('backdrop_path')
         table.string('poster_path')
+        table.string('backdrop')
+        table.string('poster')
         table.string('homepage')
         table.text('overview')
         table.string('popularity')
@@ -20,6 +22,7 @@ exports.up = function(knex) {
         table.string('revenue')
         table.string('vote_average')
         table.string('vote_count')
+        table.boolean('has_art').defaultTo(false)
 		table.timestamps(true, true)
 	})
 }
