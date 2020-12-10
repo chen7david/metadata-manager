@@ -1,3 +1,15 @@
 tmdb:
   apikey: 'c729bbc07bb8542dd22c1d740f0c5bf5'
   imgurl: 'http://image.tmdb.org/t/p/original'
+  imgsizes:
+    backdrop:
+      - 300
+      - 780
+      - 1280
+    poster:
+        - 92
+        - 154
+        - 185
+        - 342
+        - 500
+        - 780

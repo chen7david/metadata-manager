@@ -1,8 +1,9 @@
 const { Movie } = require('./../models')
 const { deburr } = require('lodash')
 const { tmdb } = require('confyg')
+const sharp = require('sharp')
 const p = require('path')
-const { dd, validateBody } = require('koatools')
+const { dd } = require('koatools')
 const { mkdir, download, exist } = require('./../utils/functions')
 module.exports = {
 
@@ -93,19 +94,35 @@ module.exports = {
             
         }else if(dl){
             // create directory
-            const dest = p.resolve(__dirname, './../../public/original/')
+            const { poster, backdrop } = tmdb.imgsizes
+            const base = './../../public/image'
+            const dest = p.resolve(__dirname, base, 'original')
             const success = await mkdir(dest)
             const { backdrop_path, poster_path } = ctx.state.movie
             if(poster_path){
                 const posterpath = p.join(dest, poster_path)
                 const posterUrl = tmdb.imgurl + poster_path
                 if(!exist(posterpath)|| f) await download(posterpath, posterUrl)
+                // create sizes
+                for(let size of poster){
+                    const posterDestFolder = p.resolve(__dirname,base, `${size}`)
+                    const posterDest = p.join(posterDestFolder, poster_path)
+                    await mkdir(posterDestFolder)
+                    if(!exist(posterDest)|| f) await sharp(posterpath).resize(size).toFile(posterDest)
+                }
             }
 
             if(backdrop_path){
                 const backdroppath = p.join(dest, backdrop_path)
                 const backdropUrl = tmdb.imgurl + backdrop_path
                 if(!exist(backdroppath)|| f) await download(backdroppath, backdropUrl)
+                // create sizes
+                for(let size of backdrop){
+                    const backdropDestFolder = p.resolve(__dirname,base, `${size}`)
+                    const backdropDest = p.join(backdropDestFolder, backdrop_path)
+                    await mkdir(backdropDestFolder)
+                    if(!exist(backdropDest)|| f) await sharp(backdroppath).resize(size).toFile(backdropDest)
+                }
             }
         }else {
             data = ctx.state.movie
