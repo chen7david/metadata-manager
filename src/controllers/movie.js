@@ -15,6 +15,10 @@ module.exports = {
         ctx.state.movie = movie
         return next()
     },
+
+    getIds: async (ctx) => {
+
+    },
     
     index: async (ctx) => {
 
@@ -43,11 +47,6 @@ module.exports = {
                 payload = results
 
             }
-
-        }else if(search){
-
-            const { results } = data
-            payload = results
 
         }else if(search) {
             let keyphrase = deburr(search).toLowerCase()
