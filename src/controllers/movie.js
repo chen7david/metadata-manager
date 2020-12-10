@@ -1,7 +1,9 @@
 const { Movie } = require('./../models')
 const { deburr } = require('lodash')
+const { tmdb } = require('confyg')
+const p = require('path')
 const { dd, validateBody } = require('koatools')
-
+const { mkdir, download, exist } = require('./../utils/functions')
 module.exports = {
 
     paramLoader:  async (id, ctx, next) => {
@@ -79,7 +81,7 @@ module.exports = {
     view: async (ctx) => {
         
         const { id } = ctx.params
-        const { source, download } = ctx.request.query
+        const { source, dl, f } = ctx.request.query
 
         let data = null
 
@@ -89,12 +91,25 @@ module.exports = {
             // Add your list of sources here ...
             if(source == 'tmdb') data = await ctx.$tmdb.movies().withId(id).get()
             
-        }else if(download){
+        }else if(dl){
             // create directory
+            const dest = p.resolve(__dirname, './../../public/original/')
+            const success = await mkdir(dest)
+            const { backdrop_path, poster_path } = ctx.state.movie
+            if(poster_path){
+                const posterpath = p.join(dest, poster_path)
+                const posterUrl = tmdb.imgurl + poster_path
+                if(!exist(posterpath)|| f) await download(posterpath, posterUrl)
+            }
+
+            if(backdrop_path){
+                const backdroppath = p.join(dest, backdrop_path)
+                const backdropUrl = tmdb.imgurl + backdrop_path
+                if(!exist(backdroppath)|| f) await download(backdroppath, backdropUrl)
+            }
         }else {
             data = ctx.state.movie
         }
-        console.log({data, source, id})
         return ctx.body = ctx.cargo.setPayload(data)
     },
 

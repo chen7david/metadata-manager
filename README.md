@@ -17,7 +17,7 @@ paginate | GET | /movies | page=integer, limit=integer
 search | GET | /movies | search=string, year=1990
 trending | GET | /movies | type=trending, window=week
 genres | GET | /movies | type=genres, window=week
-download | GET | /movies/:id| download=coverart
+download | GET | /movies/:id| dl=coverart
 thumbnails | GET | /movies/:id| create=thumbnails
 
 
