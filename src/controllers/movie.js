@@ -23,15 +23,17 @@ module.exports = {
     
     index: async (ctx) => {
 
-        const { 
+        let { 
             search,
             year,
             source,
             type,
             window,
-            pages,
+            page,
             limit 
         } = ctx.request.query
+        limit = limit || 20
+        if(page ) page -= 1
 
         let payload = null
 
@@ -54,15 +56,17 @@ module.exports = {
             /* Search Local Sources */
             const query = Movie.query().where('keyphrase', 'like', `%${keyphrase}%`)
             if(year) query.andWhere('release_date', 'like', `%${year}%`)
+            if(page) query.page(page, limit)
             payload = await query.orderBy('release_date', 'desc')
 
             if(source){
                 /* Search External Sources */
                 let data = { results: [] }
                 // Add your list of cources here ...
-                if(source == 'tmdb') data = await ctx.$tmdb.movies().search(search, {year}).get()
-                const { results } = data
-                payload = results
+                if(source == 'tmdb') data = await ctx.$tmdb.movies().search(search, {year, page}).get()
+                // const { results } = data
+                // payload = results
+                payload = data
             }else{
                 /* Search Local Sources */
                 const query = Movie.query().where('keyphrase', 'like', `%${search}%`)
@@ -71,11 +75,17 @@ module.exports = {
             }
 
         }else {
-            
             /* Return All */
-            payload = await Movie.query().orderBy('release_date', 'desc')
+            query = Movie.query()
+            if(page) query.page(page, limit)
+            payload = await query.orderBy('release_date', 'desc')
         }
-        
+        if(payload.total){
+            payload.page = parseInt(page,10)
+            payload.total_pages = Math.ceil(payload.total/limit)
+            payload.total_results = payload.total
+            delete payload.total
+        }
         return ctx.body = ctx.cargo.setPayload(payload)
     },
 
